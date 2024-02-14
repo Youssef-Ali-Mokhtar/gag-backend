@@ -1,13 +1,19 @@
 const express = require('express');
-
+const Post = require('../models/postModel');
 const router = express.Router();
 
 router.get('/',(req, res)=>{
     res.json({message:"Get all posts!"});
 });
 
-router.post('/',(req, res)=>{
-    res.json({message:"Post to posts!"});
+router.post('/', async (req, res)=>{
+    const {title, description} = req.body;
+    try {
+        const post = await Post.create({title, description});
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
 });
 
 router.get('/:id',(req, res)=>{
