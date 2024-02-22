@@ -5,7 +5,14 @@ const login = async (req, res)=> {
 }
 
 const signup = async (req, res)=> {
-    res.json({message:'signup user'});
+    const { email, password } = req.body;
+    console.log(email);
+    try {
+        const user = await User.signup(email, password);
+        res.status(200).json({ email, user });
+    } catch(error) {
+        res.status(400).json("error: "+ error.message);
+    }
 }
 
 module.exports = {
