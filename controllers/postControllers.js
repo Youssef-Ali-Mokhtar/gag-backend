@@ -26,7 +26,6 @@ const createPost = async (req, res)=>{
         emptyFields.push('description');
     }
     if(emptyFields.length > 0) {
-        emptyFields.push('title');
         return res.status(400).json({message:'Please fill all fields', emptyFields})
     }
 
